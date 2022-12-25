@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import "./App.css";
+import Tile from "./components/Tile";
+import GameContext from "./context/GameContext";
 
-function App() {
+const App = () => {
+  const { hasWinner, playerTurn, dispatch } = useContext(GameContext);
+  const tiles = new Array(9).fill(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 className="player-turn">Player turn: {playerTurn}</h1>
+      <h1
+        className="new-game"
+        onClick={() => {
+          dispatch({ type: "newGame" });
+        }}
+      >
+        New game
+      </h1>
+      {hasWinner && <h1 className="winner">Winner: player {playerTurn}!</h1>}
+      <div className="App">
+        {tiles.map((_, index) => {
+          return <Tile key={index} index={index} />;
+        })}
+      </div>
+    </>
   );
-}
+};
 
 export default App;

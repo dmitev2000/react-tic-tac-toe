@@ -4,7 +4,7 @@ import GameContext from "../context/GameContext";
 import { useEffect } from "react";
 
 const Tile = ({ index }) => {
-  const { clearTiles, playerTurn, dispatch } = useContext(GameContext);
+  const { hasWinner, clearTiles, playerTurn, dispatch } = useContext(GameContext);
   const [value, setValue] = useState();
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const Tile = ({ index }) => {
     }, [clearTiles]);
 
   const clickHandler = () => {
-    if (value) return;
+    if (value || hasWinner) return;
     setValue(playerTurn);
     dispatch({ type: "updateBoard", indexToUpdate: index });
   };

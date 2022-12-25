@@ -1,10 +1,15 @@
 import React from "react";
 import { useState, useContext } from "react";
 import GameContext from "../context/GameContext";
+import { useEffect } from "react";
 
 const Tile = ({ index }) => {
-  const { playerTurn, dispatch } = useContext(GameContext);
+  const { clearTiles, playerTurn, dispatch } = useContext(GameContext);
   const [value, setValue] = useState();
+
+    useEffect(() => {
+        setValue("");
+    }, [clearTiles]);
 
   const clickHandler = () => {
     if (value) return;

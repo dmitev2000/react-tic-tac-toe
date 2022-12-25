@@ -4,7 +4,7 @@ import Tile from "./components/Tile";
 import GameContext from "./context/GameContext";
 
 const App = () => {
-  const { hasWinner, playerTurn, dispatch } = useContext(GameContext);
+  const { hasWinner, winner, playerTurn, dispatch } = useContext(GameContext);
   const tiles = new Array(9).fill(null);
 
   return (
@@ -18,7 +18,8 @@ const App = () => {
       >
         New game
       </h1>
-      {hasWinner && <h1 className="winner">Winner: player {playerTurn}!</h1>}
+      {hasWinner && <h1 className="game-result">Winner: player {playerTurn}!</h1>}
+      {!hasWinner && winner === "none" && <h1 className="game-result">Draw</h1>}
       <div className="App">
         {tiles.map((_, index) => {
           return <Tile key={index} index={index} />;
